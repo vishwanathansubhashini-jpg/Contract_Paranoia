@@ -2,9 +2,25 @@
 
 **Your AI Legal Guardian — Real-time contract analysis powered by Google ADK + Gemini**
 
-Para watches your contract through your camera, listens to you discuss it, speaks up the moment she spots a red flag, and stops mid-sentence when you interrupt. Every flagged clause is validated against real law via Google Search grounding.
-
 > Built for the **Gemini Live Agent Challenge** hackathon using Google Agent Development Kit (ADK).
+
+## What is Contract Paranoia?
+
+Ever signed a gym membership, freelance agreement, or lease without reading the fine print? Contract Paranoia is your AI legal buddy that reads it for you — in real time.
+
+**How it works:**
+1. **Talk to Para** — Start a session, and Para greets you by voice. Have a natural conversation about your contract.
+2. **Show your document** — Point your camera at a paper contract, or upload a PDF. Para reads it instantly.
+3. **Get instant flags** — Para speaks up the moment she spots a red flag: *"Hold on — this liability waiver means you can't sue them even if they're at fault."*
+4. **Interrupt anytime** — Ask follow-up questions mid-analysis. Para stops, listens, and responds. Just like talking to a real lawyer.
+5. **Get a report** — Download a PDF risk report. Run the Judge Agent to grade the analysis quality.
+
+**What makes it different:**
+- **Voice-first** — No typing. Talk naturally and Para responds with audio in ~1.6 seconds.
+- **Sees your document** — Camera or PDF upload. Para reads the actual clause text, not summaries.
+- **Self-correcting** — A built-in Judge Agent audits Para's work and catches mistakes (like repeating herself after interruptions).
+- **Grounded in law** — Every claim is validated via Google Search. No hallucinated legal advice.
+- **Works on any contract** — Gym memberships, employment agreements, SaaS terms, rental leases, freelance contracts.
 
 **[Try it Live](https://contract-paranoia-944851811258.us-central1.run.app)** (PIN: `para2026`) | **TTFB: ~1.6s** | **Grounding: 100%** | **Judge Score: A/95**
 
