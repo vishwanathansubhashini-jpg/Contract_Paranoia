@@ -98,7 +98,7 @@ The **native audio model** (`gemini-2.5-flash-native-audio-preview-12-2025`) is 
 
 The **Judge Agent** uses **Vertex AI** (`gemini-2.5-flash` via `genai.Client(vertexai=True, location="global")`) for structured evaluation of Para's analysis quality. This demonstrates enterprise-grade IAM authentication via Cloud Run's service account.
 
-This dual-path architecture was a deliberate design decision: use the best model for each task, regardless of which API surface it's available on.
+This dual-path architecture exists because the Gemini Live API (bidirectional streaming for real-time audio) is **not yet available on Vertex AI** — it is only accessible through the Gemini API. The native audio model (`gemini-2.5-flash-native-audio-preview-12-2025`) does not appear in the Vertex AI Model Garden. For non-streaming tasks like the Judge evaluation, we use Vertex AI to demonstrate enterprise IAM authentication.
 
 ## Features
 
