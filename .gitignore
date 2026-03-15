@@ -1,0 +1,26 @@
+node_modules/
+dist/
+.env
+.env.*
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+data/
+CLAUDE.md
+archive/
+
+# Google Cloud service account keys — NEVER commit these
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!tsconfig.*.json
+!clause_library.json
+service-account*.json
+*-credentials.json
+*-key.json
+.claude/
+*.db
+backend/y/
