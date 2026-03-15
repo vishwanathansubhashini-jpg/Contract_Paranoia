@@ -39,62 +39,63 @@ Ever signed a gym membership, freelance agreement, or lease without reading the 
 
 ```mermaid
 graph TB
-    subgraph Browser["🌐 Browser (React + TypeScript)"]
+    subgraph Browser["🌐 Client Layer (React + TypeScript)"]
         direction LR
-        MIC["🎤 Web Audio\nWorklet (16kHz)"]
-        CAM["📷 Camera\nCanvas (JPEG)"]
-        PDF["📄 PDF Upload\n(pdf.js)"]
-        CHAT["💬 Chat UI"]
-        JUDGE_UI["⚖️ Judge Panel"]
+        MIC["🎤 Web Audio Worklet\n(16kHz PCM + VAD)"]
+        CAM["📷 Vision Stream\n(JPEG Frames)"]
+        PDF["📄 PDF Processor\n(pdf.js Rendering)"]
+        CHAT["💬 Live Interaction UI"]
+        JUDGE_UI["⚖️ Quality Auditor Panel"]
     end
 
-    subgraph Backend["☁️ Backend (FastAPI + Google ADK)"]
+    subgraph Backend["☁️ Orchestration Layer (FastAPI + Google ADK)"]
         direction TB
-        WS["🔌 WebSocket\nBridge"]
+        WS["🔌 WebSocket Gateway\n(Session Affinity)"]
 
-        subgraph ADK["🤖 ADK Runner.run_live()"]
+        subgraph ADK["🤖 Multimodal Agent Framework"]
             direction TB
-            PARA["🛡️ Root Agent: Para\n🔧 save_note, get_notes"]
-            ANALYZER["🔍 Sub-Agent: Para Analyzer\n🔧 flag_clause, score_risk\n🔧 google_search"]
+            PARA["🛡️ Root Agent: Para\nLlmAgent (Context Manager)"]
+            ANALYZER["🔍 Sub-Agent: Analyzer\nToolAgent (Legal Specialist)"]
             PARA --> ANALYZER
         end
 
-        JUDGE["⚖️ Judge Agent\n(Vertex AI)"]
-        DB["💾 Persistence\n(SQLite)"]
-        PDF_SVC["📊 PDF Report\n(fpdf2)"]
+        JUDGE["⚖️ Judge Agent\n(Reasoning Trace)"]
+        DB["💾 Session Persistence\n(Async SQLite)"]
+        PDF_SVC["📊 Report Engine\n(fpdf2)"]
     end
 
-    subgraph Google["☁️ Google Cloud"]
-        GEMINI["✨ Gemini 2.5 Flash\nNative Audio Preview\n(Gemini API)"]
-        VERTEX["🏢 Vertex AI\ngemini-2.5-flash\n(Judge Evaluation)"]
-        SEARCH["🔎 Google Search\nGrounding"]
+    subgraph Google["☁️ Google AI & Cloud Infrastructure"]
+        GEMINI["✨ Gemini 2.5 Flash\nNative Audio Preview\n(BidiGenerateContent)"]
+        VERTEX["🏢 Vertex AI Platform\nGemini 2.5 Flash\n(Enterprise Inference)"]
+        SEARCH["🔎 Google Search\nGrounding Service"]
     end
 
-    MIC -->|"PCM Audio\n+ VAD Signals"| WS
-    CAM -->|"JPEG Frames"| WS
-    PDF -->|"Page Images"| WS
-    CHAT -->|"Text Messages"| WS
+    MIC -->|"Native Audio"| WS
+    CAM -->|"Vision Frames"| WS
+    PDF -->|"Visual Context"| WS
+    CHAT -->|"Text/Notes"| WS
 
     WS <-->|"ADK LiveRequestQueue"| ADK
-    ADK <-->|"Bidirectional\nStreaming"| GEMINI
-    ANALYZER -->|"Legal Validation"| SEARCH
+    ADK <-->|"Direct Audio-to-Audio"| GEMINI
+    ANALYZER -->|"Verified Grounding"| SEARCH
 
-    JUDGE_UI -->|"REST POST"| JUDGE
-    JUDGE -->|"generateContent"| VERTEX
+    JUDGE_UI -->|"Evaluation Request"| JUDGE
+    JUDGE -->|"Structured Audit"| VERTEX
 
-    WS -->|"Clauses & Messages"| DB
-    DB -->|"Session Data"| PDF_SVC
-    DB -->|"Session Data"| JUDGE
+    WS -.->|"Async Write"| DB
+    DB -.->|"State Recovery"| WS
+    DB -->|"PDF Generation"| PDF_SVC
+    DB -->|"Trace Data"| JUDGE
 
-    WS -->|"Audio + Transcripts\n+ Clause Cards"| Browser
+    WS -->|"Audio + Transcripts + Cards"| Browser
 
-    style Browser fill:#1e1e2e,stroke:#818cf8,color:#eef0f6
-    style Backend fill:#161822,stroke:#22c55e,color:#eef0f6
-    style Google fill:#0f1117,stroke:#f59e0b,color:#eef0f6
-    style ADK fill:#282a3a,stroke:#818cf8,color:#eef0f6
-    style GEMINI fill:#282a3a,stroke:#f59e0b,color:#eef0f6
-    style VERTEX fill:#282a3a,stroke:#f59e0b,color:#eef0f6
-    style SEARCH fill:#282a3a,stroke:#f59e0b,color:#eef0f6
+    style Browser fill:#1a1b26,stroke:#7aa2f7,stroke-width:2px,color:#cfc9c2
+    style Backend fill:#1a1b26,stroke:#bb9af7,stroke-width:2px,color:#cfc9c2
+    style Google fill:#1a1b26,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
+    style ADK fill:#24283b,stroke:#7dcfff,stroke-dasharray: 5 5,color:#cfc9c2
+    style GEMINI fill:#24283b,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
+    style VERTEX fill:#24283b,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
+    style SEARCH fill:#24283b,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
 ```
 
 ## Google Cloud Services Used
