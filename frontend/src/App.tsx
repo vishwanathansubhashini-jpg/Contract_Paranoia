@@ -282,16 +282,17 @@ function MainApp() {
   // Risk score calculation
   // Match backend score_risk formula: 100 - (RED × 20) - (YELLOW × 5) + (GREEN × 2)
   const riskScore = useMemo(() => {
-    if (displayClauses.length === 0) return 0
+    if (displayClauses.length === 0) return -1
     return Math.max(0, Math.min(100, 100 - (redCount * 20) - (yellowCount * 5) + (greenCount * 2)))
   }, [redCount, yellowCount, greenCount, displayClauses.length])
 
-  const riskColor = riskScore === 0 ? 'var(--txt3)' : riskScore >= 80 ? 'var(--green)' : riskScore >= 50 ? 'var(--amber)' : 'var(--red)'
+  const hasRisk = displayClauses.length > 0
+  const riskColor = !hasRisk ? 'var(--txt3)' : riskScore >= 80 ? 'var(--green)' : riskScore >= 50 ? 'var(--amber)' : 'var(--red)'
 
   // Latency quality indicators
   const ttfbColor = perfMetrics.latencyMs === 0 ? 'var(--txt3)' : perfMetrics.latencyMs < 400 ? 'var(--green)' : perfMetrics.latencyMs < 800 ? 'var(--amber)' : 'var(--red)'
   const ttfbLabel = perfMetrics.latencyMs === 0 ? '—' : perfMetrics.latencyMs < 400 ? 'Elite' : perfMetrics.latencyMs < 800 ? 'Good' : 'Slow'
-  const riskVerdict = riskScore === 0 ? 'No data' : riskScore >= 80 ? 'LOW RISK' : riskScore >= 50 ? 'MODERATE RISK' : 'HIGH RISK'
+  const riskVerdict = !hasRisk ? 'No data' : riskScore >= 80 ? 'LOW RISK' : riskScore >= 50 ? 'MODERATE RISK' : 'HIGH RISK'
 
   const statusDotClass = isViewingPast ? '' : isRunning ? (status === 'speaking' ? 'info' : 'active') : ''
   const statusText = isViewingPast ? 'HISTORY' : !isLive ? 'OFFLINE' : status === 'connecting' ? 'CONNECTING' : status === 'thinking' ? 'ANALYZING' : status === 'speaking' ? 'SPEAKING' : status === 'interrupted' ? 'LISTENING' : 'SCANNING'
@@ -842,7 +843,7 @@ function MainApp() {
           <div className="rtabs">
             <button className={`rtab ${activeTab === 'clauses' ? 'active' : ''}`} onClick={() => setActiveTab('clauses')}>Clauses</button>
             <button className={`rtab ${activeTab === 'summary' ? 'active' : ''}`} onClick={() => setActiveTab('summary')}>Summary</button>
-            <button className={`rtab ${activeTab === 'judge' ? 'active' : ''}`} onClick={() => { setActiveTab('judge'); if (!judgeEval && !judgeLoading && displayClauses.length > 0) runJudgeEval() }}>Judge</button>
+            <button className={`rtab ${activeTab === 'judge' ? 'active' : ''}`} onClick={() => { setActiveTab('judge'); if (!judgeEval && !judgeLoading && displayClauses.length > 0) runJudgeEval(isViewingPast ? viewingPast!.id : undefined) }}>Judge</button>
           </div>
 
           {/* Clauses tab */}
@@ -984,7 +985,7 @@ function MainApp() {
               )}
               {!judgeLoading && !judgeEval && displayClauses.length > 0 && (
                 <div style={{ textAlign: 'center', padding: '32px 14px' }}>
-                  <button className="btn" onClick={runJudgeEval} style={{ fontSize: 13 }}>Run Judge Evaluation</button>
+                  <button className="btn" onClick={() => runJudgeEval(isViewingPast ? viewingPast!.id : undefined)} style={{ fontSize: 13 }}>Run Judge Evaluation</button>
                 </div>
               )}
               {judgeEval && (
@@ -1108,7 +1109,7 @@ function MainApp() {
                   </div>
 
                   <div style={{ textAlign: 'center', padding: '12px 0' }}>
-                    <button className="btn" onClick={runJudgeEval} style={{ fontSize: 11, padding: '6px 14px', opacity: 0.7 }}>Re-evaluate</button>
+                    <button className="btn" onClick={() => runJudgeEval(isViewingPast ? viewingPast!.id : undefined)} style={{ fontSize: 11, padding: '6px 14px', opacity: 0.7 }}>Re-evaluate</button>
                   </div>
                 </>
               )}

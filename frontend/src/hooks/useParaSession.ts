@@ -680,12 +680,13 @@ export function useParaSession() {
   }, [])
 
   // ── Judge Agent evaluation ──────────────────────────────────────────────
-  const runJudgeEval = useCallback(async () => {
-    if (!sessionId || judgeLoading) return
+  const runJudgeEval = useCallback(async (overrideSessionId?: string) => {
+    const sid = overrideSessionId || sessionId
+    if (!sid || judgeLoading) return
     setJudgeLoading(true)
     setJudgeEval(null)
     try {
-      const res = await fetch(`${API_BASE}/api/sessions/${sessionId}/evaluate`, { method: 'POST' })
+      const res = await fetch(`${API_BASE}/api/sessions/${sid}/evaluate`, { method: 'POST' })
       if (!res.ok) { console.error('[Para] Judge error'); return }
       const data: JudgeEvaluation = await res.json()
       setJudgeEval(data)
