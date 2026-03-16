@@ -38,6 +38,12 @@ Ever signed a gym membership, freelance agreement, or lease without reading the 
 
 ![Architecture Diagram](docs/architecture-2.svg)
 
+## Cloud Deployment
+
+Running on **Google Cloud Run** — us-central1
+
+![Cloud Run Console](docs/Cloud_run.png)
+
 ## Google Cloud Services Used
 
 | Service | Usage |
