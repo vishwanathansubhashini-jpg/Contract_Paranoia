@@ -26,8 +26,7 @@ Ever signed a gym membership, freelance agreement, or lease without reading the 
 
 ## Demo
 
-<!-- TODO: Add demo video link after recording -->
-<!-- [Watch the Demo Video (4 min)](https://youtube.com/...) -->
+[Watch the Demo Video (4 min)](https://youtu.be/UPXnwPu9mPw)
 
 ![Contract Paranoia — Live Analysis](docs/screenshot-judge-after-2.png)
 *Para analyzing a contract in real-time: RED flags for liability waiver and auto-renewal, YELLOW caution for unilateral amendment*
