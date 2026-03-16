@@ -37,7 +37,7 @@ Ever signed a gym membership, freelance agreement, or lease without reading the 
 
 ## Architecture
 
-![Architecture Diagram](docs/architecture.svg)
+![Architecture Diagram](docs/architecture-2.svg)
 
 ## Google Cloud Services Used
 
