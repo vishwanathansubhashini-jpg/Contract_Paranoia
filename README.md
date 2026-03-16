@@ -87,8 +87,8 @@ This dual-path architecture exists because the Gemini Live API (bidirectional st
 ### 1. Clone & Setup
 
 ```bash
-git clone https://github.com/YOUR_USERNAME/contract-paranoia.git
-cd contract-paranoia
+git clone https://github.com/vishwanathansubhashini-jpg/Contract_Paranoia.git
+cd Contract_Paranoia
 ```
 
 ### 2. Backend
