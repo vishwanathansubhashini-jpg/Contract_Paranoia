@@ -37,66 +37,7 @@ Ever signed a gym membership, freelance agreement, or lease without reading the 
 
 ## Architecture
 
-```mermaid
-graph TB
-    subgraph Browser["🌐 Client Layer (React + TypeScript)"]
-        direction LR
-        MIC["🎤 Web Audio Worklet\n(16kHz PCM + VAD)"]
-        CAM["📷 Vision Stream\n(JPEG Frames)"]
-        PDF["📄 PDF Processor\n(pdf.js Rendering)"]
-        CHAT["💬 Live Interaction UI"]
-        JUDGE_UI["⚖️ Quality Auditor Panel"]
-    end
-
-    subgraph Backend["☁️ Orchestration Layer (FastAPI + Google ADK)"]
-        direction TB
-        WS["🔌 WebSocket Gateway\n(Session Affinity)"]
-
-        subgraph ADK["🤖 Multimodal Agent Framework"]
-            direction TB
-            PARA["🛡️ Root Agent: Para\nLlmAgent (Context Manager)"]
-            ANALYZER["🔍 Sub-Agent: Analyzer\nToolAgent (Legal Specialist)"]
-            PARA --> ANALYZER
-        end
-
-        JUDGE["⚖️ Judge Agent\n(Reasoning Trace)"]
-        DB["💾 Session Persistence\n(Async SQLite)"]
-        PDF_SVC["📊 Report Engine\n(fpdf2)"]
-    end
-
-    subgraph Google["☁️ Google AI & Cloud Infrastructure"]
-        GEMINI["✨ Gemini 2.5 Flash\nNative Audio Preview\n(BidiGenerateContent)"]
-        VERTEX["🏢 Vertex AI Platform\nGemini 2.5 Flash\n(Enterprise Inference)"]
-        SEARCH["🔎 Google Search\nGrounding Service"]
-    end
-
-    MIC -->|"Native Audio"| WS
-    CAM -->|"Vision Frames"| WS
-    PDF -->|"Visual Context"| WS
-    CHAT -->|"Text/Notes"| WS
-
-    WS <-->|"ADK LiveRequestQueue"| ADK
-    ADK <-->|"Direct Audio-to-Audio"| GEMINI
-    ANALYZER -->|"Verified Grounding"| SEARCH
-
-    JUDGE_UI -->|"Evaluation Request"| JUDGE
-    JUDGE -->|"Structured Audit"| VERTEX
-
-    WS -.->|"Async Write"| DB
-    DB -.->|"State Recovery"| WS
-    DB -->|"PDF Generation"| PDF_SVC
-    DB -->|"Trace Data"| JUDGE
-
-    WS -->|"Audio + Transcripts + Cards"| Browser
-
-    style Browser fill:#1a1b26,stroke:#7aa2f7,stroke-width:2px,color:#cfc9c2
-    style Backend fill:#1a1b26,stroke:#bb9af7,stroke-width:2px,color:#cfc9c2
-    style Google fill:#1a1b26,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
-    style ADK fill:#24283b,stroke:#7dcfff,stroke-dasharray: 5 5,color:#cfc9c2
-    style GEMINI fill:#24283b,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
-    style VERTEX fill:#24283b,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
-    style SEARCH fill:#24283b,stroke:#ff9e64,stroke-width:2px,color:#cfc9c2
-```
+![Architecture Diagram](docs/architecture.svg)
 
 ## Google Cloud Services Used
 
